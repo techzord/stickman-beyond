@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stickman — Beyond Limits</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game-shell" id="gameShell">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-icon">S</span>
+        <div><h1>STICKMAN</h1><p>BEYOND LIMITS</p></div>
+      </div>
+      <div class="top-actions">
+        <button id="soundBtn">♫ Sound: ON</button>
+        <button id="powerRewardBtn" title="Demo reward selection; connect an ad provider for real ads">🎁 Power Reward</button>
+        <button id="pauseBtn" title="Pause or resume (P / Esc)">Ⅱ Pause</button>
+        <button id="fullscreenBtn">⛶ Full Screen</button>
+        <button id="restartBtn">↻ Restart</button>
+      </div>
+    </header>
+    <section class="hud">
+      <div class="stat"><span>HEALTH</span><strong id="health">100</strong><div class="health-track"><div id="healthFill"></div></div></div>
+      <div class="stat"><span>COINS</span><strong>🟡 <b id="coins">0</b></strong></div>
+      <div class="stat"><span>LEVEL</span><strong id="level">1 / 50</strong></div>
+      <div class="stat"><span>ENEMIES LEFT</span><strong id="enemyCount">0</strong></div>
+    </section>
+    <section class="game-frame" id="gameFrame">
+      <canvas id="game" width="960" height="500"></canvas>
+      <div id="powerModal" class="power-modal hidden" role="dialog" aria-modal="true" aria-labelledby="powerModalTitle">
+        <div class="power-card">
+          <p class="overlay-tag">REWARDED POWER</p>
+          <h2 id="powerModalTitle">Choose a 10-second power</h2>
+          <p class="ad-note">Demo mode: no real ad is connected yet. A rewarded-ad provider must call the reward callback after a completed ad.</p>
+          <div class="power-options">
+            <button data-trial-power="sword"><strong>⚔ Super Sword</strong><span>Triple damage for 10 sec</span></button>
+            <button data-trial-power="shield"><strong>🛡 Energy Shield</strong><span>Block damage for 10 sec</span></button>
+            <button data-trial-power="speed"><strong>⚡ Speed Boost</strong><span>Move faster for 10 sec</span></button>
+            <button data-trial-power="health"><strong>💚 Health Boost</strong><span>Restore up to 40 health</span></button>
+          </div>
+          <button id="powerCloseBtn" class="close-power">Not now</button>
+        </div>
+      </div>
+      <div id="overlay" class="overlay hidden"><p class="overlay-tag">STICKMAN — BEYOND LIMITS</p><h2 id="overlayTitle">LEVEL COMPLETE!</h2><p id="overlayText">The next challenge awaits.</p><button id="continueBtn">Continue →</button></div>
+    </section>
+    <footer class="controls"><div><kbd>A</kbd> <kbd>D</kbd><span>Move</span></div><div><kbd>SPACE</kbd><span>Jump</span></div><div><kbd>J</kbd><span>Sword</span></div><div><kbd>S</kbd> / <kbd>↓</kbd><span>Crouch</span></div><div><kbd>P</kbd><span>Pause</span></div><div><kbd>F</kbd><span>Fullscreen</span></div></footer>
+    <div class="mobile-controls"><div class="move-buttons"><button id="leftBtn" aria-label="Move left">◀</button><button id="rightBtn" aria-label="Move right">▶</button></div><div class="action-buttons"><button id="crouchBtn">CROUCH</button><button id="jumpBtn">JUMP</button><button id="attackBtn">ATTACK</button></div></div>
+    <p class="tip">Defeat every enemy • Dodge hazards and arrows • Unlock the portal</p>
+  </main>
+
+  <section id="loadingScreen" class="startup-screen loading-screen" aria-label="Loading game">
+    <div class="startup-logo">S</div><p class="startup-kicker">BEYOND LIMITS</p><h2>Preparing the arena</h2>
+    <div class="loading-track"><span></span></div><p class="startup-small">Loading worlds, monsters and power-ups…</p>
+  </section>
+  <section id="mainMenu" class="startup-screen main-menu hidden" aria-label="Main menu">
+    <div class="menu-content">
+      <div class="startup-logo large">S</div><p class="startup-kicker">A 2D ACTION PLATFORMER</p>
+      <h2>STICKMAN <span>BEYOND LIMITS</span></h2>
+      <p class="menu-copy">50 levels. 5 worlds. 5 kings. One last chance.</p>
+      <div class="menu-actions"><button id="startGameBtn" class="primary-menu-btn">START GAME <span>▶</span></button><button id="continueGameBtn">CONTINUE · LEVEL 1</button><button id="openLevelsBtn">LEVEL SELECT</button></div>
+      <div class="menu-foot"><span>⌨ PC: A/D · SPACE · J</span><span>📱 Mobile: rotate to landscape</span></div>
+    </div>
+  </section>
+  <section id="levelSelectScreen" class="startup-screen level-select-screen hidden" aria-label="Choose level">
+    <div class="level-select-card"><div class="level-select-head"><div><p class="startup-kicker">YOUR JOURNEY</p><h2>CHOOSE YOUR LEVEL</h2><p id="unlockSummary">Level 1 unlocked · 50 levels</p></div><button id="backToMenuBtn" class="back-btn">← MENU</button></div>
+      <div class="world-legend"><span>🌲 WORLD I · 1–10</span><span>☠ WORLD II · 11–20</span><span>🟣 WORLD III · 21–30</span><span>⚡ WORLD IV · 31–40</span><span>🔥 WORLD V · 41–50</span></div>
+      <div id="levelGrid" class="level-grid"></div>
+      <p class="level-select-note">🔒 Clear a level to unlock the next. 👑 Every 10th level is a King Boss fight.</p>
+    </div>
+  </section>
+  <script src="game.js"></script>
+</body>
+</html>
